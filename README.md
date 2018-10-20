@@ -40,7 +40,7 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
   ```  
   192.168.1.4
   ```
-2. open the url connection using `HttpUrlConnection`:
+
   ```
   192.168.1.4 is an intro page
   192.168.1.4/Value gives the sensor value
