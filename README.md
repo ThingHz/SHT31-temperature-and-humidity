@@ -75,11 +75,11 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
 
 ## Profile
 
-![alt text](https://github.com/vbshightime/espThings/blob/master/thingSpeak.png)
+![alt text](https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/thingSpeak.png)
 
-![alt text]( https://github.com/vbshightime/espThings/blob/master/webpage1.png)
+![alt text]( https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/webpage1.png)
 
-![alt text]( https://github.com/vbshightime/espThings/blob/master/webpage2.png)
+![alt text]( https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/webpage2.png)
 
 
 ## Credits
