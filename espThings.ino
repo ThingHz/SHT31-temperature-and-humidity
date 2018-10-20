@@ -4,22 +4,25 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
-
+//SHT31 I2C address
 #define Addr 0x44
 
+//static Ip for AP
 IPAddress ap_local_IP(192,168,1,4);
 IPAddress ap_gateway(192,168,1,254);
 IPAddress ap_subnet(255,255,255,0);
 
+//ssid and AP for local WiFi in STA mode
 const char WiFissid[] = "*********";
 const char WiFipass[] = "*********";
-
+//ssid and pass for AP
 const char APssid[] = "********";
 const char APpass[] = "********";
 
 boolean connectAP = false;
 boolean connectWiFi =false;
 
+//Things speak hostid and apikey 
 const char* hostId="Your_Things_speak_hostid";
 String apiKey = "Things_speak_api_key";
 
@@ -27,6 +30,7 @@ volatile float humid;
 volatile float tempC;
 volatile float tempF;
 
+//prototype for task callback
 void taskI2CCallback();
 void taskI2CDisable();
 void taskAPCallback();
@@ -34,6 +38,7 @@ void taskAPDisable();
 void taskWiFiCallback();
 void taskWiFiDisable();
 
+//webpage1
 String PAGE1 = 
 "<!DOCTYPE html>"
 "<html>"
@@ -53,46 +58,46 @@ String PAGE1 =
 "</body>"
 "</html>";
 
+
 ESP8266WebServer server(80);
 Scheduler ts;
 
+//Tasks for i2c, hosting web server and post on thingspeak
 Task tI2C(1 * TASK_SECOND, TASK_FOREVER, &taskI2CCallback, &ts, false, NULL, &taskI2CDisable);
 Task tAP(5*TASK_SECOND, TASK_FOREVER, &taskAPCallback,&ts,false,NULL,&taskAPDisable);
 Task tWiFi(5* TASK_SECOND, TASK_FOREVER, &taskWiFiCallback, &ts, false, NULL, &taskWiFiDisable);
 
 void setup() {
-  // put your setup code here, to run once:
- /*for(uint8_t t =4;t>=0;t--){
+ for(uint8_t t =4;t>=0;t--){
    Serial.println("[SETUP] WAIT...%d \n",t);
    Serial.flush();
    delay(1000);
-  }*/
-  
+  }
+ 
+  //begin i2c begin(SDA,SCL)
  Wire.begin(2,14);
  Serial.begin(115200);
-
-    
+  
  server.on("/", onHandleDataRoot);
  server.on("/Value",onHandleDataFeed);
  server.onNotFound(onHandleNotFound);
  
-
+ //timeout for tasks
  tI2C.setTimeout(10 * TASK_SECOND);
  tAP.setTimeout(50 * TASK_SECOND);
  tWiFi.setTimeout(50 * TASK_SECOND); 
-
+ 
+ //enable I2C task
  tI2C.enable();
 }
 
 
 void loop() {
-
-  // put your main code here, to run repeatedly:
- //if(millis()-sensorTimer>=sensorInterval){
+  //execute the scheduler
   ts.execute(); 
-  //sensorTimer = millis();
 }  
 
+//I2C task callback
  void taskI2CCallback(){
 
   Serial.println("taskI2CStarted");
@@ -144,41 +149,45 @@ void loop() {
    Serial.println(String(fTemp,1));
    Serial.print("Humidity:\t ");
    Serial.println(String(humidity,1));
-  // postData(humidity,tempC);
  }
 
-
+//callback when I2C task disables
 void taskI2CDisable(){
   if(tI2C.timedOut()){
         Serial.println("//taskI2C disabled");
         Serial.println("call taskAP");
+        //connect to the Access point
         reconnectAPWiFi();
+        //enable and call APtask
         tAP.setCallback(&taskAPCallback);
         tAP.enable();
-        //ConnectAP=true;
-        //ConnectWiFi = false;
+        //disable task I2C
         tI2C.disable();
       }   
   }
 
+//callback for AP task
 void taskAPCallback(){
     Serial.println("taskAP started");
     server.handleClient();
   }
 
+//callback when AP task disables
 void taskAPDisable(){
   if(tAP.timedOut()){
     Serial.println("//taskI2C disabled");
         Serial.println("call taskAP");
+        //connect to WiFi
         reconnectWiFi();
+        //enable and call WifItask
         tWiFi.setCallback(&taskWiFiCallback);
         tWiFi.enable();
-        //ConnectAP=true;
-        //ConnectWiFi = false;
+        //disable task AP
         tAP.disable();
     }
   }
 
+//callback for WiFi
 void taskWiFiCallback(){
     WiFiClient wifiClient;
         if(wifiClient.connect(hostId,80)){
@@ -208,8 +217,10 @@ void taskWiFiDisable(){
   if(tWiFi.timedOut()){
     Serial.println("//taskAP disabled");
         Serial.println("call taskI2C");
+        //enable I2C task again and call taskI2CCallback
         tI2C.setCallback(&taskI2CCallback);
         tI2C.enable();
+        //disables WiFi task
         tWiFi.disable();
     }
   }  
