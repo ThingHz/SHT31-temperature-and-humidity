@@ -11,17 +11,17 @@ IPAddress ap_local_IP(192,168,1,4);
 IPAddress ap_gateway(192,168,1,254);
 IPAddress ap_subnet(255,255,255,0);
 
-const char WiFissid[] = "sahilvibhu";
-const char WiFipass[] = "24041990";
+const char WiFissid[] = "*********";
+const char WiFipass[] = "*********";
 
-const char APssid[] = "ESPUser";
-const char APpass[] = "24041990";
+const char APssid[] = "********";
+const char APpass[] = "********";
 
 boolean connectAP = false;
 boolean connectWiFi =false;
 
-const char* hostId="api.thingspeak.com";
-String apiKey = "QE3A3UWGYFGL72HJ";
+const char* hostId="Your_Things_speak_hostid";
+String apiKey = "Things_speak_api_key";
 
 volatile float humid; 
 volatile float tempC;
