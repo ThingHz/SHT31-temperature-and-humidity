@@ -5,31 +5,32 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
  
 
 ## Features 
- 1. Provides you real time analytics and stats using Thing Speak API 
- 2. The sensor data can also be seen in Web Server hosted by the device
- 3. Task Scheduler are used to Schedule the task like fetching data from sensors, hosting a web server, posting the readings to cloud
- 4. It uses I2C protocol to fetch the sensor reading which are more accurate, expandableand scalable
- 5. sleep mode when device is idle or no task callback is called.
- 6. effective task scheduling provide hastle free usage
+
+  - Provides you real time analytics and stats using Thing Speak API 
+  - The sensor data can also be seen in Web Server hosted by the device
+  - Task Scheduler are used to Schedule the task like fetching data from sensors, hosting a web server, posting the readings to cloud
+  - It uses I2C protocol to fetch the sensor reading which are more accurate, expandableand scalable
+  - sleep mode when device is idle or no task callback is called.
+  - effective task scheduling provide hastle free usage
  
 ## Parts Used
- 1. [Adafruit esp8266 Huzzah board](https://www.adafruit.com/product/2471)
- 2. [Huzzah Board Shield](https://shop.controleverything.com/products/adafruit-huzzah-esp8266-breakout-with-usb-and-i2c-expansion-port)
- 3. [SHT31 Sensor module](https://shop.controleverything.com/products/humidity-and-temperature-sensor-2-rh-0-3-c)
- 4. [I2C cable](https://store.ncd.io/product/i%C2%B2c-cable/)
+  - [Adafruit esp8266 Huzzah board](https://www.adafruit.com/product/2471)
+  - [Huzzah Board Shield](https://shop.controleverything.com/products/adafruit-huzzah-esp8266-breakout-with-usb-and-i2c-expansion-port)
+  - [SHT31 Sensor module](https://shop.controleverything.com/products/humidity-and-temperature-sensor-2-rh-0-3-c)
+  - [I2C cable](https://store.ncd.io/product/i%C2%B2c-cable/)
  
 
 ## How it works
- 1. We have scheduled three tasks refering to three different control operations
- 2. Task 1 is for reading the sensor value this task runs for 1 second till it reaches timeout of 10 secs.
- 3. When the Task1 reaches its time out Task 2 is enabled and Task1 is disabled. We connect to AP in this callback two boolean variables are taken to
- 4. Two boolean variables are taken to take care of the switching between STA and AP 
- 5. In Task 2 we are hosting a web server at 192.168.1.4 . This task runs for every 5 sec till it reaches its timeout which is 50 sec
- 6. When Task 2 reaches timeout Task 3 is enabled and Task2 is disabled. We connect to STA(local IP) in this calback 
- 7. In Task 3 we are posting the sensor reading to cloud [ThingSpeak API](https://thingspeak.com/channels/602864)
- 8. Task 3 runs for every five seconds till it reached its timeout i.e 50 sec
- 9. When the Task3 reaches its time out Task 1 is enabled again and Task3 is disabled.
-10. when no callback is called or the device is idle it goes to Light Sleep thus saving power.
+  -  We have scheduled three tasks refering to three different control operations
+  - Task 1 is for reading the sensor value this task runs for 1 second till it reaches timeout of 10 secs.
+  - When the Task1 reaches its time out Task 2 is enabled and Task1 is disabled. We connect to AP in this callback two boolean variables are taken to
+  - Two boolean variables are taken to take care of the switching between STA and AP 
+  - In Task 2 we are hosting a web server at 192.168.1.4 . This task runs for every 5 sec till it reaches its timeout which is 50 sec
+  - When Task 2 reaches timeout Task 3 is enabled and Task2 is disabled. We connect to STA(local IP) in this calback 
+  - In Task 3 we are posting the sensor reading to cloud [ThingSpeak API](https://thingspeak.com/channels/602864)
+  - Task 3 runs for every five seconds till it reached its timeout i.e 50 sec
+  - When the Task3 reaches its time out Task 1 is enabled again and Task3 is disabled.
+  - when no callback is called or the device is idle it goes to Light Sleep thus saving power.
 
 
 ## Usage
