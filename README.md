@@ -1,7 +1,6 @@
 # SHT31-temperature-and-humidity
  
-It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adafruit Huzzah ESP8266. It provides us Real Time Temperature and Humidity data and 
- hourly analytics. The data is send to web Server hosted by the device and to Things Speak API
+It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adafruit Huzzah ESP8266. It provides us Real Time Temperature and Humidity data and hourly analytics. The data is sent to web Server hosted by the device and to Things Speak API
  
 
 ## Features 
@@ -9,11 +8,11 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
   - Provides you real time analytics and stats using Thing Speak API 
   - The sensor data can also be seen in Web Server hosted by the device
   - Task Scheduler are used to Schedule the task like fetching data from sensors, hosting a web server, posting the readings to cloud
-  - It uses I2C protocol to fetch the sensor reading which are more accurate, expandableand scalable
+  - It uses I2C protocol to fetch the sensor reading which are more accurate, expandable and scalable
   - sleep mode when device is idle or no task callback is called.
   - effective task scheduling provide hastle free usage
  
-## Parts Used
+## Hardware Specification
   - [Adafruit esp8266 Huzzah board](https://www.adafruit.com/product/2471)
   - [Huzzah Board Shield](https://shop.controleverything.com/products/adafruit-huzzah-esp8266-breakout-with-usb-and-i2c-expansion-port)
   - [SHT31 Sensor module](https://shop.controleverything.com/products/humidity-and-temperature-sensor-2-rh-0-3-c)
@@ -44,7 +43,8 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
 
   ```
   192.168.1.4 is an intro page
-  192.168.1.4/Value gives the sensor value
+  This values gives the sensor value
+  192.168.1.4/Value 
  ```
 
 ### POST data to thing speak
@@ -97,4 +97,4 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
 1. To host another web page where the user can config its wifi credentials.
 2. Deep sleep mode- We can put ESP to deep sleep mode to conserve power
 3. To enhance the no. of sensors using i2c
-4. Createa mesh network using ESp's.
+4. Create a mesh network using ESp's.
