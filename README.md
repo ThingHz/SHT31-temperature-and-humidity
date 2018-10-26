@@ -78,13 +78,18 @@ It's an ESP8266 project to measure Temperature and Humidity using SHT31 and Adaf
 
 ![alt text](https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/CaptureHumidity.PNG)
 
+
 ![alt text]( https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/CaptureTEmpGauge.PNG)
+
 
 ![alt text]( https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/CaptureTempC.PNG)
 
+
 ![alt text](https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/CaptureTempF.PNG)
 
+
 ![alt text]( https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/CaptureWeb2.PNG)
+
 
 ![alt text](https://github.com/ncdcommunity/SHT31-temperature-and-humidity/blob/master/Captureweb1_1.PNG)
 
