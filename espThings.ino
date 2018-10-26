@@ -68,15 +68,18 @@ Task tAP(5*TASK_SECOND, TASK_FOREVER, &taskAPCallback,&ts,false,NULL,&taskAPDisa
 Task tWiFi(5* TASK_SECOND, TASK_FOREVER, &taskWiFiCallback, &ts, false, NULL, &taskWiFiDisable);
 
 void setup() {
- for(uint8_t t =4;t>=0;t--){
-   Serial.println("[SETUP] WAIT...%d \n",t);
+ Serial.begin(115200);
+  Serial.setTimeout(1000);//time to waitfor before recieving any serial data
+
+ for(uint8_t t=4; t>0; t--){
+   Serial.printf("[SETUP] WAIT...%d \n",t);
    Serial.flush();
    delay(1000);
   }
  
   //begin i2c begin(SDA,SCL)
  Wire.begin(2,14);
- Serial.begin(115200);
+ 
   
  server.on("/", onHandleDataRoot);
  server.on("/Value",onHandleDataFeed);
