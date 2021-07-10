@@ -1,9 +1,10 @@
 #include <Wire.h>
 #define _TASK_TIMEOUT
 #include <TaskScheduler.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-
+//#include <ESP8266WiFi.h>
+//#include <ESP8266WebServer.h>
+#include <WiFi.h>
+#include <WebServer.h>
 //SHT31 I2C address
 #define Addr 0x44
 
@@ -59,7 +60,8 @@ String PAGE1 =
 "</html>";
 
 
-ESP8266WebServer server(80);
+//ESP8266WebServer server(80);
+WebServer server(80);
 Scheduler ts;
 
 //Tasks for i2c, hosting web server and post on thingspeak
@@ -142,16 +144,19 @@ void loop() {
   //shift the MSB by 8 bits add LSB to it devide by full resolution and *100 for percentage   
   float humidity = (100.0 * ((root[3] * 256.0) + root[4])) / 65535.0;
 
-  tempC = cTemp;
-  tempF = fTemp;
-  humid = humidity;
+  //tempC = cTemp;
+  tempC = 21.8;
+  //tempF = fTemp;
+  tempF = 71.24;
+  //humid = humidity;
+  humid = 95;
    
    Serial.print("Temperature in C:\t");
-   Serial.println(String(cTemp,1));
+   Serial.println(String(tempC,1));
    Serial.print("Temperature in F:\t");
-   Serial.println(String(fTemp,1));
+   Serial.println(String(tempF,1));
    Serial.print("Humidity:\t ");
-   Serial.println(String(humidity,1));
+   Serial.println(String(humid,1));
  }
 
 //callback when I2C task disables
@@ -299,5 +304,3 @@ void reconnectWiFi(){
     Serial.print("Connected to:\t");
     Serial.println(WiFi.localIP());
 }
-
-
